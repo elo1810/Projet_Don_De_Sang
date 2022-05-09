@@ -1,0 +1,14 @@
+model\Stockdesang_.class
+projet_infoH400_AFMPS\view\MainWindow$1.class
+com\mycompany\testdb\exceptions\NonexistentEntityException.class
+projet_infoH400_AFMPS\view\EntityListModel.class
+projet_infoH400_AFMPS\view\MainWindow$2.class
+com\mycompany\testdb\StockdesangJpaController.class
+projet_infoH400_AFMPS\view\MainWindow.class
+com\mycompany\testdb\exceptions\PreexistingEntityException.class
+projet_infoH400_AFMPS\view\MainWindow$3.class
+infoH400_AFMPS\Services\HL7Services.class
+com\mycompany\testdb\exceptions\IllegalOrphanException.class
+view\Main.class
+model\Stockdesang.class
+projet_infoH400_AFMPS\view\MainWindow$4.class
