@@ -115,7 +115,7 @@ public class AddPersonPannel extends javax.swing.JPanel {
 
         jLabel8.setText("Mot de passe");
 
-        jLabel9.setText("(yyyy-jj-mm)");
+        jLabel9.setText("(yyyy-mm-jj)");
 
         jLabel10.setText("(cm)");
 
