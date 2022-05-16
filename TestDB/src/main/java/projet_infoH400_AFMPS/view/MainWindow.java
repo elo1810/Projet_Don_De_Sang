@@ -143,7 +143,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     EntityListModel<Stockdesang> model = (EntityListModel) jList1.getModel();
     Stockdesang selectione = model.getList().get(jList1.getSelectedIndex());
-    ORM_O01 orm = hl7service.send_ORM_O01(selectione);//à demander
+    ORM_O01 orm = hl7service.create_ORM_O01(selectione);//à demander
     hl7service.sendORM_O01(orm, host, port);
     }//GEN-LAST:event_Send_infoActionPerformed
 

@@ -30,7 +30,7 @@ import model.Stockdesang;
 
 
 public class HL7Services {
-    public ORM_O01 send_ORM_O01(Stockdesang stockdesang){
+    public ORM_O01 create_ORM_O01(Stockdesang stockdesang){
         ORM_O01 orm = null;
         try {
             orm = new ORM_O01();
