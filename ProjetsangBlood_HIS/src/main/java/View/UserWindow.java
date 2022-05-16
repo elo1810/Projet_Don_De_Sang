@@ -29,7 +29,6 @@ public class UserWindow extends javax.swing.JFrame {
     public UserWindow(Person p) {
         initComponents();
         this.person=p;
-        messageLabel.setText(person.getFirstName());
         if (person.getFlag()){
             messageLabel.setText("Hi " +person.getFirstName()+ "! Go give your blood please");
         }
