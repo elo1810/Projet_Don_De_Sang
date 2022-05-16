@@ -18,8 +18,6 @@ import javax.persistence.Persistence;
 public class askLogInWindow extends javax.swing.JFrame {
     
     private final EntityManagerFactory emfac = Persistence.createEntityManagerFactory("com.mycompany_ProjetsangBlood_HIS_jar_1.0-SNAPSHOTPU");
-    private final ManJpaController manCtrl = new ManJpaController(emfac);
-    private final WomanJpaController womanCtrl = new WomanJpaController(emfac);
     private final PersonJpaController personCtrl = new PersonJpaController(emfac);
 
     /**

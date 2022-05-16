@@ -4,7 +4,13 @@
  */
 package View;
 
+import Controller.ManJpaController;
+import Controller.WomanJpaController;
+import Model.Man;
 import Model.Person;
+import Model.Woman;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -12,13 +18,20 @@ import Model.Person;
  */
 public class UserWindow extends javax.swing.JFrame {
 
+    private final EntityManagerFactory emfac = Persistence.createEntityManagerFactory("com.mycompany_ProjetsangBlood_HIS_jar_1.0-SNAPSHOTPU");
+    private final ManJpaController manCtrl = new ManJpaController(emfac);
+    private final WomanJpaController womanCtrl = new WomanJpaController(emfac);
+    private Person person;
     /**
+     * 
      * Creates new form UserWindow
      */
     public UserWindow(Person p) {
         initComponents();
-        if (p.getFlag()){
-            messageLabel.setText("Hi " +p.getFirstName()+ "! Go give your blood please");
+        this.person=p;
+        messageLabel.setText(person.getFirstName());
+        if (person.getFlag()){
+            messageLabel.setText("Hi " +person.getFirstName()+ "! Go give your blood please");
         }
     }
 
@@ -31,13 +44,18 @@ public class UserWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        editprofilButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         messageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Edit Profil");
+        editprofilButton.setText("Edit Profil");
+        editprofilButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editprofilButtonActionPerformed(evt);
+            }
+        });
 
         messageLabel.setText("Message");
 
@@ -47,7 +65,7 @@ public class UserWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(editprofilButton)
                 .addGap(46, 46, 46))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -63,7 +81,7 @@ public class UserWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addComponent(jButton1)
+                .addComponent(editprofilButton)
                 .addGap(73, 73, 73)
                 .addComponent(jLabel1)
                 .addGap(48, 48, 48)
@@ -74,12 +92,28 @@ public class UserWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void editprofilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editprofilButtonActionPerformed
+        Man m = manCtrl.findByIdPerson(person);
+        Woman w =womanCtrl.findByIdPerson(person);
+        if (m != null){
+            AddmanWindow amw = new AddmanWindow();
+            amw.setMan(m);
+            amw.setVisible(true);
+        }
+        
+        if (w != null){
+            AddwomanWindow aww = new AddwomanWindow();
+            aww.setWoman(w);
+            aww.setVisible(true);
+        }
+    }//GEN-LAST:event_editprofilButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton editprofilButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel messageLabel;
     // End of variables declaration//GEN-END:variables
