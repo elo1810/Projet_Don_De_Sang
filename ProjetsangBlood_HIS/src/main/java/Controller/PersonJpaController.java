@@ -254,4 +254,14 @@ public class PersonJpaController implements Serializable {
         }
     }
     
+    
+    public Person findByLogIn(String firstName, String lastName, String password){
+        EntityManager em = getEntityManager();
+        List<Person> res = em.createNamedQuery("Person.findByLogIn").setParameter("firstName", firstName).setParameter("lastName", lastName).setParameter("password", password).getResultList();
+        if (res.isEmpty()){
+            return null;
+        }
+        return res.get(0);
+    }
+    
 }

@@ -4,11 +4,23 @@
  */
 package View;
 
+import Controller.ManJpaController;
+import Controller.PersonJpaController;
+import Controller.WomanJpaController;
+import Model.Person;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 /**
  *
  * @author mimib
  */
 public class askLogInWindow extends javax.swing.JFrame {
+    
+    private final EntityManagerFactory emfac = Persistence.createEntityManagerFactory("com.mycompany_ProjetsangBlood_HIS_jar_1.0-SNAPSHOTPU");
+    private final ManJpaController manCtrl = new ManJpaController(emfac);
+    private final WomanJpaController womanCtrl = new WomanJpaController(emfac);
+    private final PersonJpaController personCtrl = new PersonJpaController(emfac);
 
     /**
      * Creates new form askLogInWindow
@@ -26,12 +38,14 @@ public class askLogInWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        nameTextFiels = new javax.swing.JTextField();
+        nameTextField = new javax.swing.JTextField();
         firstnameTextField = new javax.swing.JTextField();
         passwordTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        connectButton = new javax.swing.JButton();
+        errormessageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -41,30 +55,45 @@ public class askLogInWindow extends javax.swing.JFrame {
 
         jLabel3.setText("Password");
 
+        connectButton.setText("Connect");
+        connectButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                connectButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(passwordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(firstnameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                        .addComponent(nameTextFiels)))
-                .addGap(145, 145, 145))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(errormessageLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(passwordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                                    .addComponent(firstnameTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                                    .addComponent(nameTextField, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(82, 82, 82))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(267, Short.MAX_VALUE)
+                        .addComponent(connectButton)))
+                .addGap(63, 63, 63))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameTextFiels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -74,11 +103,26 @@ public class askLogInWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(errormessageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(connectButton)
+                .addGap(35, 35, 35))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
+        Person p = personCtrl.findByLogIn(firstnameTextField.getText(), nameTextField.getText(), passwordTextField.getText()) ;
+        if (p==null){
+            errormessageLabel.setText("No person in database, please create new account");
+        }
+        else{
+            UserWindow userWindow = new UserWindow(p);
+            userWindow.setVisible(true);
+        }
+    }//GEN-LAST:event_connectButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,11 +160,13 @@ public class askLogInWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton connectButton;
+    private javax.swing.JLabel errormessageLabel;
     private javax.swing.JTextField firstnameTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField nameTextFiels;
+    private javax.swing.JTextField nameTextField;
     private javax.swing.JTextField passwordTextField;
     // End of variables declaration//GEN-END:variables
 }

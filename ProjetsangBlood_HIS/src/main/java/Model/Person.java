@@ -38,7 +38,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Person.findByBloodType", query = "SELECT p FROM Person p WHERE p.bloodType = :bloodType"),
     @NamedQuery(name = "Person.findBySickness", query = "SELECT p FROM Person p WHERE p.sickness = :sickness"),
     @NamedQuery(name = "Person.findByPassword", query = "SELECT p FROM Person p WHERE p.password = :password"),
-    @NamedQuery(name = "Person.findByFlag", query = "SELECT p FROM Person p WHERE p.flag = :flag")})
+    @NamedQuery(name = "Person.findByFlag", query = "SELECT p FROM Person p WHERE p.flag = :flag"),
+    @NamedQuery(name = "Person.findByLogIn", query = "SELECT p FROM Person p WHERE p.firstName = :firstName AND p.lastName = :lastName AND p.password = :password" )})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;

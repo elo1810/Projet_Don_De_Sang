@@ -24,21 +24,33 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="57" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="passwordTextField" pref="93" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="firstnameTextField" pref="93" max="32767" attributes="0"/>
-                      <Component id="nameTextFiels" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="errormessageLabel" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="57" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="passwordTextField" pref="93" max="32767" attributes="0"/>
+                                  <Component id="firstnameTextField" alignment="0" pref="93" max="32767" attributes="0"/>
+                                  <Component id="nameTextField" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace pref="267" max="32767" attributes="0"/>
+                      <Component id="connectButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -47,7 +59,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="nameTextFiels" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
@@ -60,13 +72,17 @@
                   <Component id="passwordTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="107" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="errormessageLabel" pref="21" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="connectButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="nameTextFiels">
+    <Component class="javax.swing.JTextField" name="nameTextField">
     </Component>
     <Component class="javax.swing.JTextField" name="firstnameTextField">
     </Component>
@@ -86,6 +102,16 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Password"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="connectButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Connect"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="connectButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="errormessageLabel">
     </Component>
   </SubComponents>
 </Form>

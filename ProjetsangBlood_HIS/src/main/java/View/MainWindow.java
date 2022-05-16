@@ -4,6 +4,8 @@
  */
 package View;
 
+import Service.HL7ServicesHIS;
+
 /**
  *
  * @author Adela
@@ -107,7 +109,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void UpDateStockDeSangButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpDateStockDeSangButtonActionPerformed
 
         //créer un instance de notre class HL7Services 
-        HL7Services hl7 = new HL7Services() ; 
+        HL7ServicesHIS hl7 = new HL7ServicesHIS() ; 
         //hl7.startServer (); //Qui va faire les Opérations pour démarrer le server
     }//GEN-LAST:event_UpDateStockDeSangButtonActionPerformed
 

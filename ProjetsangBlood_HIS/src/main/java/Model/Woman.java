@@ -26,6 +26,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Woman.findAll", query = "SELECT w FROM Woman w"),
     @NamedQuery(name = "Woman.findById", query = "SELECT w FROM Woman w WHERE w.id = :id"),
+    @NamedQuery(name = "Woman.findByIdPerson", query = "SELECT w FROM Woman w WHERE w.idPerson = :idPerson"),
     @NamedQuery(name = "Woman.findByIsPregnant", query = "SELECT w FROM Woman w WHERE w.isPregnant = :isPregnant")})
 public class Woman implements Serializable {
 

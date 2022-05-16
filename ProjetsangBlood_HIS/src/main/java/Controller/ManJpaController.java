@@ -164,4 +164,13 @@ public class ManJpaController implements Serializable {
         }
     }
     
+    public Man findByIdPerson(Person p){
+        EntityManager em = getEntityManager();
+        List<Man> res = em.createNamedQuery("Person.findByIdPerson").setParameter("IdPerson", p.getId()).getResultList();
+        if (res.isEmpty()){
+            return null;
+        }
+        return res.get(0);
+    }
+    
 }

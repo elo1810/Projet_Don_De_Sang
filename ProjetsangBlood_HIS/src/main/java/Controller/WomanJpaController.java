@@ -164,4 +164,13 @@ public class WomanJpaController implements Serializable {
         }
     }
     
+    public Woman findByIdPerson(Person p){
+        EntityManager em = getEntityManager();
+        List<Woman> res = em.createNamedQuery("Person.findByIdPerson").setParameter("IdPerson", p.getId()).getResultList();
+        if (res.isEmpty()){
+            return null;
+        }
+        return res.get(0);
+    }
+    
 }
