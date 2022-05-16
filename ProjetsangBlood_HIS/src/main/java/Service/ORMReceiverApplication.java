@@ -14,6 +14,8 @@ import ca.uhn.hl7v2.protocol.ReceivingApplication;
 import ca.uhn.hl7v2.protocol.ReceivingApplicationException;
 import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -34,50 +36,44 @@ public class ORMReceiverApplication implements  ReceivingApplication<Message> {
 
         //On caste le message ORM O01 (car class lié directement à ce type de message) - message class au dessus de tous les messages 
         ORM_O01 message = (ORM_O01) t; 
-        //Récupérer les différents champs comme qd on a crée ORM_AO1 , le plus important NTE 
+        //Récupérer les différents champs comme qd on a crée ORM_O01 , le plus important NTE 
         NTE nte = message.getNTE();
         String alert = nte.getNte3_Comment(0).getValue(); 
         
-        //char groupe ;
-        //groupe = alert.charAt(0); 
-        
-        //char rhesus; 
-        //rhesus = alert.charAt(2); 
-        
-        System.out.println(alert); 
-        
-        //On va vérifier si notre personne existe déjà
-        EntityManagerFactory emfac = Persistence.createEntityManagerFactory("com.mycompany_ProjetsangBlood_HIS_jar_1.0-SNAPSHOTPU");
-        /*
-        PersonJpaController personCtrl = new PersonJpaController (emfac); 
-        Utiliser la méthode findDuplicate pour vérifier si la personne qu'on vient de recevoir existe déjà
-        Person duplicate = personCtrl.findDuplicate(p); 
-        if(duplicate == null)
+        String groupe = "";
+        char rhesus ; 
+        String groupeRhesus = ""; 
+        if(alert.charAt(1)=='B')
         {
-            PatientJpaController patientCtrl = new PatientJpaController(emfac); 
-
-            //la personne existe pas encore donc on peut mtn l'ajouter 
-            personCtrl.create(p);
-            Patient pat = new Patient();
-            pat.setIdperson(p); 
-            pat.setStatus("active");
-            patientCtrl.create(pat); 
+            groupe += alert.charAt(0);
+            groupe += alert.charAt(1);
+            rhesus = alert.charAt(3);
+            
+            groupeRhesus = groupe + rhesus ; 
         }
         
-        //String encodedMessage = new DefaultHapiContext().getPipeParser().encode(t);
-        //On affiche le message qu'on a recu et qu'on a bien traité le message 
-        //System.out.println("Received message:\n" + encodedMessage + "\n\n"); 
-         try {
-          	return t.generateACK();
-         } catch (IOException e) {
-              throw new HL7Exception(e);
-         }
-*/
-         //Sinon on pourrait renvoyer un message d'erreur si ca ne correspond pas à ce qu'on voudrait recevoir
-         
-         
-         return null; 
-         //return t.generateACK();
+        if(alert.charAt(1)==' ')
+        {
+            groupe += alert.charAt(0);
+            rhesus = alert.charAt(2);
+            
+            groupeRhesus = groupe + rhesus ; 
+        }
+        
+       
+        
+        //creer une query dans le controller patient (model) qui va find tous les patients avec le bon groupe et le bon rhésus
+        //ajouter mfac ici pour pouvoir utiliser le controller du patient pour appeler cette query 
+        
+        System.out.println(alert); 
+ 
+        try {
+            return t.generateACK();
+        } catch (IOException ex) {
+            Logger.getLogger(ORMReceiverApplication.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
     }
 
     @Override
