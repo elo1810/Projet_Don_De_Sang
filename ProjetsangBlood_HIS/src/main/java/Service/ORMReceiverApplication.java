@@ -39,10 +39,11 @@ public class ORMReceiverApplication implements  ReceivingApplication<Message> {
         //Récupérer les différents champs comme qd on a crée ORM_O01 , le plus important NTE 
         NTE nte = message.getNTE();
         String alert = nte.getNte3_Comment(0).getValue(); 
-        
+        System.out.println(alert); 
+
         String groupe = "";
         char rhesus ; 
-        String groupeRhesus = ""; 
+        String groupeRhesus = "";
         if(alert.charAt(1)=='B')
         {
             groupe += alert.charAt(0);
@@ -61,7 +62,7 @@ public class ORMReceiverApplication implements  ReceivingApplication<Message> {
         }
         
        
-        
+        System.out.println(groupeRhesus);
         //creer une query dans le controller patient (model) qui va find tous les patients avec le bon groupe et le bon rhésus
         //ajouter mfac ici pour pouvoir utiliser le controller du patient pour appeler cette query 
         

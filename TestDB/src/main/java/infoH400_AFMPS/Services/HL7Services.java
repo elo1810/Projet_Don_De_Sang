@@ -37,8 +37,8 @@ public class HL7Services {
             orm.initQuickstart("ORM", "O01", "P");
             MSH mshSegment = orm.getMSH();
             mshSegment.getSendingApplication().getNamespaceID().setValue("AFMPS");//on dit qui envoie le message
-            mshSegment.getSequenceNumber().setValue("MSG00001");//identifie le message qu'on est en train d'envoyer pour, lorsque l'on reçoit la réponse, on sache à quel message on fait référence
-            
+                        
+            mshSegment.getSequenceNumber().setValue("");//identifie le message qu'on est en train d'envoyer pour, lorsque l'on reçoit la réponse, on sache à quel message on fait référence
             NTE nte = orm.getNTE();
             nte.getNte3_Comment(0).setValue(stockdesang.getGroupe()+" "+stockdesang.getRhesus()+" est en manque");
             

@@ -110,7 +110,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         //créer un instance de notre class HL7Services 
         HL7ServicesHIS hl7 = new HL7ServicesHIS() ; 
-        //hl7.startServer (); //Qui va faire les Opérations pour démarrer le server
+        hl7.startServer (); //Qui va faire les Opérations pour démarrer le server
     }//GEN-LAST:event_UpDateStockDeSangButtonActionPerformed
 
     /**
