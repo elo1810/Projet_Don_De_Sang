@@ -33,10 +33,9 @@ public class UserWindow extends javax.swing.JFrame {
     public UserWindow(Person p) {
         initComponents();
         this.person=p;
-        Date datelimitemax = CalendrierService.MakeDifference(10);
-        Date datelimitemin = CalendrierService.MakeDifference(50);
-        System.out.println(datelimitemin);
-        System.out.println(datelimitemax);
+        Date datelimitemax = CalendrierService.MakeDifference(18);
+        Date datelimitemin = CalendrierService.MakeDifference(66);
+        
 
         personCtrl.findElibigility(person,50, 150, false, datelimitemax, datelimitemin);// set the flag true or false if the person is eligible
         
