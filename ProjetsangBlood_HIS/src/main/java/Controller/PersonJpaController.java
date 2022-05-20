@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import Model.Man;
 import Model.Person;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -264,4 +265,15 @@ public class PersonJpaController implements Serializable {
         return res.get(0);
     }
     
+    public void findElibigility(Person person, int weight, int height, boolean sickness, Date datelimitemax,Date datelimitemin){
+        EntityManager em = getEntityManager();
+        List<Person> res = em.createNamedQuery("Person.findElibigility").setParameter("id", person.getId()).setParameter("weight", weight).setParameter("height", height).setParameter("sickness", sickness).setParameter("datelimitemin", datelimitemin).setParameter("datelimitemax", datelimitemax).getResultList();
+        if (res.isEmpty()){
+            person.setFlag(false);
+        }
+        else{
+            person.setFlag(true);
+        }
+        
+    }
 }

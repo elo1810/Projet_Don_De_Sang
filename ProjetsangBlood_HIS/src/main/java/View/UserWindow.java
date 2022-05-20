@@ -5,10 +5,13 @@
 package View;
 
 import Controller.ManJpaController;
+import Controller.PersonJpaController;
 import Controller.WomanJpaController;
 import Model.Man;
 import Model.Person;
 import Model.Woman;
+import Service.CalendrierService;
+import java.util.Date;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -21,6 +24,7 @@ public class UserWindow extends javax.swing.JFrame {
     private final EntityManagerFactory emfac = Persistence.createEntityManagerFactory("com.mycompany_ProjetsangBlood_HIS_jar_1.0-SNAPSHOTPU");
     private final ManJpaController manCtrl = new ManJpaController(emfac);
     private final WomanJpaController womanCtrl = new WomanJpaController(emfac);
+    private final PersonJpaController personCtrl = new PersonJpaController(emfac);
     private Person person;
     /**
      * 
@@ -29,6 +33,22 @@ public class UserWindow extends javax.swing.JFrame {
     public UserWindow(Person p) {
         initComponents();
         this.person=p;
+        Date datelimitemax = CalendrierService.MakeDifference(10);
+        Date datelimitemin = CalendrierService.MakeDifference(50);
+        System.out.println(datelimitemin);
+        System.out.println(datelimitemax);
+
+        personCtrl.findElibigility(person,50, 150, false, datelimitemax, datelimitemin);// set the flag true or false if the person is eligible
+        
+        womanCtrl.updateEligibility(person);
+        
+        if (person.getFlag()){
+            messageLabel.setText("Hi " +person.getFirstName()+ "! Go give your blood please");
+        }
+        //String bloodType = person.getBloodType();
+        //if person.isElemntOf list persone qui ont ce bloodtype
+        //a rajouter 
+        
         if (person.getFlag()){
             messageLabel.setText("Hi " +person.getFirstName()+ "! Go give your blood please");
         }
@@ -62,10 +82,6 @@ public class UserWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editprofilButton)
-                .addGap(46, 46, 46))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -75,6 +91,10 @@ public class UserWindow extends javax.swing.JFrame {
                         .addGap(176, 176, 176)
                         .addComponent(messageLabel)))
                 .addContainerGap(177, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(editprofilButton)
+                .addGap(46, 46, 46))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

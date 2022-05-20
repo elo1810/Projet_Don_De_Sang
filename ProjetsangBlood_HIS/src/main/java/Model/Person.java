@@ -39,7 +39,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Person.findBySickness", query = "SELECT p FROM Person p WHERE p.sickness = :sickness"),
     @NamedQuery(name = "Person.findByPassword", query = "SELECT p FROM Person p WHERE p.password = :password"),
     @NamedQuery(name = "Person.findByFlag", query = "SELECT p FROM Person p WHERE p.flag = :flag"),
-    @NamedQuery(name = "Person.findElibigility", query = "SELECT p FROM Person p WHERE p.weight > :weight AND p.height > :height AND p.sickness = false AND p.dateOfBirth < :datelimitemax AND p.dateOfBirth > :datelimitemin" ),
+    @NamedQuery(name = "Person.findElibigility", query = "SELECT p FROM Person p WHERE p.id=:id AND p.weight > :weight AND p.height > :height AND p.sickness = :sickness AND p.dateOfBirth < :datelimitemax AND p.dateOfBirth > :datelimitemin" ),
     @NamedQuery(name = "Person.findByLogIn", query = "SELECT p FROM Person p WHERE p.firstName = :firstName AND p.lastName = :lastName AND p.password = :password" )})
 public class Person implements Serializable {
 
