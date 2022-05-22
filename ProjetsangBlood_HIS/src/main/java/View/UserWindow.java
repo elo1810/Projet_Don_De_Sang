@@ -33,23 +33,19 @@ public class UserWindow extends javax.swing.JFrame {
     public UserWindow(Person p) {
         initComponents();
         this.person=p;
-        Date datelimitemax = CalendrierService.MakeDifference(18);
-        Date datelimitemin = CalendrierService.MakeDifference(66);
         
-
-        personCtrl.findElibigility(person,50, 150, false, datelimitemax, datelimitemin);// set the flag true or false if the person is eligible
+        //personCtrl.findElibigility(person,50, 150, false, datelimitemax, datelimitemin);// set the flag true or false if the person is eligible
+        //womanCtrl.updateEligibility(person);
         
-        womanCtrl.updateEligibility(person);
-        
-        if (person.getFlag()){
-            messageLabel.setText("Hi " +person.getFirstName()+ "! Go give your blood please");
+        if (person.getFlag() & personCtrl.findElibigility(person)){ //double précaution au cas ou changement depuis les flags
+            messageLabel.setText("Hi " +person.getFirstName()+ "! Your blood is needed ! Go give it ! ");
         }
         //String bloodType = person.getBloodType();
         //if person.isElemntOf list persone qui ont ce bloodtype
         //a rajouter 
         
-        if (person.getFlag()){
-            messageLabel.setText("Hi " +person.getFirstName()+ "! Go give your blood please");
+        if (personCtrl.findElibigility(person)){
+            messageLabel.setText("Hi " +person.getFirstName()+ "! Your blood type is not critical but you are eligible to give it ! ");
         }
     }
 

@@ -4,6 +4,9 @@
  */
 package Service;
 
+import Controller.ManJpaController;
+import Controller.PersonJpaController;
+import Controller.WomanJpaController;
 import ca.uhn.hl7v2.DefaultHapiContext;
 import ca.uhn.hl7v2.HL7Exception;
 import ca.uhn.hl7v2.model.Message;
@@ -13,12 +16,16 @@ import ca.uhn.hl7v2.model.v23.segment.NTE;
 import ca.uhn.hl7v2.protocol.ReceivingApplication;
 import ca.uhn.hl7v2.protocol.ReceivingApplicationException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
+import java.util.List;
+import Model.Person;
+import Model.Woman; 
+import Model.Man; 
 
 /**
  *
@@ -28,6 +35,12 @@ import javax.persistence.Persistence;
 //class to display the received ADT_A01 message on the terminal.
 public class ORMReceiverApplication implements  ReceivingApplication<Message> {
 
+    
+    private final EntityManagerFactory emfac = Persistence.createEntityManagerFactory("com.mycompany_ProjetsangBlood_HIS_jar_1.0-SNAPSHOTPU");
+    private final ManJpaController manCtrl = new ManJpaController(emfac);
+    private final WomanJpaController womanCtrl = new WomanJpaController(emfac);
+    private final PersonJpaController personCtrl = new PersonJpaController(emfac);
+    
     @Override
     public Message processMessage(Message t, Map<String, Object> map) throws ReceivingApplicationException, HL7Exception {
         String encodedMessage = new DefaultHapiContext().getPipeParser().encode(t);
@@ -62,7 +75,29 @@ public class ORMReceiverApplication implements  ReceivingApplication<Message> {
         
        
         //creer une query dans le controller patient (model) qui va find tous les patients avec le bon groupe et le bon rhésus
-        //ajouter mfac ici pour pouvoir utiliser le controller du patient pour appeler cette query 
+        //ajouter mfac ici pour pouvoir utiliser le controller du patient pour appeler cette query
+        personCtrl.resetFlags();
+        List<Person> alleligible = personCtrl.findElibigilityList(); 
+        for (int i=0; i<alleligible.size(); i++){
+            Person p = alleligible.get(i); 
+            if (p.getBloodType().equals(groupeRhesus)){
+                p.setFlag(true);
+                womanCtrl.updateEligibility(p);
+                
+                //Man m = manCtrl.findByIdPerson(p);
+                //Woman w = womanCtrl.findByIdPerson(p);
+                //if (m != null){
+                //    p.setFlag(true);
+                //}
+        
+                //if (w != null){
+                //    if (!w.getIsPregnant()){
+                //        p.setFlag(true); 
+                //    }
+                //}
+            }
+        }
+        
         
  
         try {

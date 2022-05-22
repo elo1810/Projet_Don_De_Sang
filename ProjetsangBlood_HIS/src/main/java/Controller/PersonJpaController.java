@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import Model.Man;
 import Model.Person;
+import Service.CalendrierService;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -265,15 +266,46 @@ public class PersonJpaController implements Serializable {
         return res.get(0);
     }
     
-    public void findElibigility(Person person, int weight, int height, boolean sickness, Date datelimitemax,Date datelimitemin){
+    public boolean findElibigility(Person person){ 
         EntityManager em = getEntityManager();
+        int weight = 50;
+        int height = 150;
+        boolean sickness = false; 
+        Date datelimitemax = CalendrierService.MakeDifference(18);
+        Date datelimitemin = CalendrierService.MakeDifference(66);
+        
         List<Person> res = em.createNamedQuery("Person.findElibigility").setParameter("id", person.getId()).setParameter("weight", weight).setParameter("height", height).setParameter("sickness", sickness).setParameter("datelimitemin", datelimitemin).setParameter("datelimitemax", datelimitemax).getResultList();
+        
+        
         if (res.isEmpty()){
-            person.setFlag(false);
+            //person.setFlag(false);
+            return false; 
         }
         else{
-            person.setFlag(true);
+            //person.setFlag(true);
+            return true; 
         }
         
+    }
+    
+    public List<Person> findElibigilityList(){
+        int weight = 50;
+        int height = 150;
+        boolean sickness = false; 
+        Date datelimitemax = CalendrierService.MakeDifference(18);
+        Date datelimitemin = CalendrierService.MakeDifference(66);
+        EntityManager em = getEntityManager();
+        List<Person> res = em.createNamedQuery("Person.findElibigilityList").setParameter("weight", weight).setParameter("height", height).setParameter("sickness", sickness).setParameter("datelimitemin", datelimitemin).setParameter("datelimitemax", datelimitemax).getResultList();
+        return res; 
+        
+    }
+    
+    public void resetFlags(){
+        EntityManager em = getEntityManager();
+        List<Person> res = em.createNamedQuery("findAll").getResultList(); 
+        for (int i=0; i<res.size(); i++){
+            Person p = res.get(i);
+            p.setFlag(false);
+        }
     }
 }
