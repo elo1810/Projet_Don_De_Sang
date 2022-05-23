@@ -30,7 +30,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         adddonneurbutton = new javax.swing.JButton();
         connexionButton = new javax.swing.JButton();
-        UpDateStockDeSangButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,39 +52,25 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        UpDateStockDeSangButton.setText("UpDate_StockDeSang");
-        UpDateStockDeSangButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpDateStockDeSangButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(131, 131, 131)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(adddonneurbutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(connexionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(UpDateStockDeSangButton)))
-                .addContainerGap(129, Short.MAX_VALUE))
+                    .addComponent(adddonneurbutton)
+                    .addComponent(connexionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addContainerGap(87, Short.MAX_VALUE)
                 .addComponent(adddonneurbutton)
-                .addGap(31, 31, 31)
+                .addGap(44, 44, 44)
                 .addComponent(connexionButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
-                .addComponent(UpDateStockDeSangButton)
-                .addGap(33, 33, 33))
+                .addGap(111, 111, 111))
         );
 
         pack();
@@ -104,14 +89,6 @@ public class MainWindow extends javax.swing.JFrame {
         askLogInWindow login = new askLogInWindow(); 
         login.setVisible(true);
     }//GEN-LAST:event_connexionButtonActionPerformed
-
-    //Bouton pour recevoir le HL7 
-    private void UpDateStockDeSangButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpDateStockDeSangButtonActionPerformed
-
-        //créer un instance de notre class HL7Services 
-        HL7ServicesHIS hl7 = new HL7ServicesHIS() ; 
-        hl7.startServer (); //Qui va faire les Opérations pour démarrer le server
-    }//GEN-LAST:event_UpDateStockDeSangButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,12 +121,13 @@ public class MainWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainWindow().setVisible(true);
+                HL7ServicesHIS hl7 = new HL7ServicesHIS() ; 
+                hl7.startServer (); 
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton UpDateStockDeSangButton;
     private javax.swing.JButton adddonneurbutton;
     private javax.swing.JButton connexionButton;
     // End of variables declaration//GEN-END:variables

@@ -7,6 +7,7 @@ package Service;
 import Controller.ManJpaController;
 import Controller.PersonJpaController;
 import Controller.WomanJpaController;
+import Controller.exceptions.NonexistentEntityException;
 import ca.uhn.hl7v2.DefaultHapiContext;
 import ca.uhn.hl7v2.HL7Exception;
 import ca.uhn.hl7v2.model.Message;
@@ -72,33 +73,17 @@ public class ORMReceiverApplication implements  ReceivingApplication<Message> {
             
             groupeRhesus = groupe + rhesus ; 
         }
-        
        
         //creer une query dans le controller patient (model) qui va find tous les patients avec le bon groupe et le bon rhésus
         //ajouter mfac ici pour pouvoir utiliser le controller du patient pour appeler cette query
         personCtrl.resetFlags();
-        List<Person> alleligible = personCtrl.findElibigilityList(); 
-        for (int i=0; i<alleligible.size(); i++){
-            Person p = alleligible.get(i); 
-            if (p.getBloodType().equals(groupeRhesus)){
-                p.setFlag(true);
-                womanCtrl.updateEligibility(p);
-                
-                //Man m = manCtrl.findByIdPerson(p);
-                //Woman w = womanCtrl.findByIdPerson(p);
-                //if (m != null){
-                //    p.setFlag(true);
-                //}
+        List<Person> allbloodtype = personCtrl.findBloodType(groupeRhesus);
+        EligibilityServices es = new EligibilityServices(); 
         
-                //if (w != null){
-                //    if (!w.getIsPregnant()){
-                //        p.setFlag(true); 
-                //    }
-                //}
-            }
+        for (int i=0; i<allbloodtype.size(); i++){
+            Person p = allbloodtype.get(i); 
+            es.checkEligibility(p);
         }
-        
-        
  
         try {
             return t.generateACK();

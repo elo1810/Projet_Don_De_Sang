@@ -9,6 +9,7 @@ import Controller.WomanJpaController;
 import Controller.exceptions.IllegalOrphanException;
 import Controller.exceptions.NonexistentEntityException;
 import Model.Woman;
+import Service.EligibilityServices;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.apache.logging.log4j.LogManager;
@@ -56,6 +57,11 @@ public class AddwomanWindow extends javax.swing.JFrame {
         
         wmn.setIdPerson(addPersonPannel.getPerson());
         wmn.setIsPregnant(enceinteCheckbox.isSelected());
+        
+        if(wmn.getIdPerson().getFlag()){
+            EligibilityServices es = new EligibilityServices(); 
+            es.checkEligibility(wmn.getIdPerson());
+        }
     }
 
     /**
@@ -123,7 +129,7 @@ public class AddwomanWindow extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         updateWoman();
-
+        
         // Create person if necessary:
         if(wmn.getIdPerson().getId() == null ){
             personCtrl.create(wmn.getIdPerson());
@@ -145,8 +151,10 @@ public class AddwomanWindow extends javax.swing.JFrame {
         } catch (Exception ex){
             LOGGER.error("Couldn't edit woman", ex);
         }
-
-        this.dispose();
+        
+        UserWindow userWindow = new UserWindow(wmn.getIdPerson());
+        userWindow.setVisible(true);
+        this.dispose(); 
     }//GEN-LAST:event_saveButtonActionPerformed
 
     /**

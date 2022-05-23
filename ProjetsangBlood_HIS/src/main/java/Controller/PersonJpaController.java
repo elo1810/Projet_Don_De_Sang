@@ -19,6 +19,8 @@ import Model.Person;
 import Service.CalendrierService;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -265,7 +267,7 @@ public class PersonJpaController implements Serializable {
         }
         return res.get(0);
     }
-    
+    /*
     public boolean findElibigility(Person person){ 
         EntityManager em = getEntityManager();
         int weight = 50;
@@ -278,16 +280,35 @@ public class PersonJpaController implements Serializable {
         
         
         if (res.isEmpty()){
-            //person.setFlag(false);
             return false; 
         }
         else{
-            //person.setFlag(true);
             return true; 
         }
         
     }
-    
+
+    public void checkElibigility(Person person){ 
+        EntityManager em = getEntityManager();
+        int weight = 50;
+        int height = 150;
+        boolean sickness = false; 
+        Date datelimitemax = CalendrierService.MakeDifference(18);
+        Date datelimitemin = CalendrierService.MakeDifference(66);
+        
+        List<Person> res = em.createNamedQuery("Person.findElibigility").setParameter("id", person.getId()).setParameter("weight", weight).setParameter("height", height).setParameter("sickness", sickness).setParameter("datelimitemin", datelimitemin).setParameter("datelimitemax", datelimitemax).getResultList();
+        
+        
+        if (res.isEmpty()){
+            person.setFlag(false);
+        }
+        else{
+            person.setFlag(true);
+        }
+        
+    }
+    */
+    /*
     public List<Person> findElibigilityList(){
         int weight = 50;
         int height = 150;
@@ -299,13 +320,30 @@ public class PersonJpaController implements Serializable {
         return res; 
         
     }
+    */
+    
+    public List<Person> findBloodType(String bt){
+        EntityManager em = getEntityManager();
+        List<Person> res = em.createNamedQuery("Person.findByBloodType").setParameter("bloodType", bt).getResultList();
+        return res; 
+    }
     
     public void resetFlags(){
+        
         EntityManager em = getEntityManager();
-        List<Person> res = em.createNamedQuery("findAll").getResultList(); 
+        
+        List<Person> res = em.createNamedQuery("Person.findAll").getResultList(); 
+        System.out.println("enter");
         for (int i=0; i<res.size(); i++){
             Person p = res.get(i);
             p.setFlag(false);
+            try {
+                edit(p);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(PersonJpaController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(PersonJpaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

@@ -173,11 +173,4 @@ public class WomanJpaController implements Serializable {
         return res.get(0);
     }
     
-    
-    public void updateEligibility(Person person){ //ici qquestion, quid de si c'est un homme ? 
-        Woman woman = findByIdPerson(person);
-        if (woman.getIsPregnant()){
-            person.setFlag(false);
-        }
-    }
 }

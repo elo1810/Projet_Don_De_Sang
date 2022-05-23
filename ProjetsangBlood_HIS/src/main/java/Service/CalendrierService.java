@@ -14,9 +14,6 @@ import java.util.Date;
  */
 public class CalendrierService {
     
-      
-   
-    
     public static Date MakeDifference(int i){
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR,-i);

@@ -127,6 +127,8 @@ public class AddmanWindow extends javax.swing.JFrame {
             LOGGER.error("Couldn't edit man", ex);
         }
 
+        UserWindow userWindow = new UserWindow(man.getIdPerson());
+        userWindow.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_saveButtonActionPerformed
 

@@ -11,6 +11,7 @@ import Model.Man;
 import Model.Person;
 import Model.Woman;
 import Service.CalendrierService;
+import Service.EligibilityServices;
 import java.util.Date;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -33,18 +34,19 @@ public class UserWindow extends javax.swing.JFrame {
     public UserWindow(Person p) {
         initComponents();
         this.person=p;
+        EligibilityServices es = new EligibilityServices(); 
         
         //personCtrl.findElibigility(person,50, 150, false, datelimitemax, datelimitemin);// set the flag true or false if the person is eligible
         //womanCtrl.updateEligibility(person);
         
-        if (person.getFlag() & personCtrl.findElibigility(person)){ //double précaution au cas ou changement depuis les flags
+        if (person.getFlag() & es.findElibigility(person)){ //double précaution au cas ou changement depuis les flags
             messageLabel.setText("Hi " +person.getFirstName()+ "! Your blood is needed ! Go give it ! ");
         }
         //String bloodType = person.getBloodType();
         //if person.isElemntOf list persone qui ont ce bloodtype
         //a rajouter 
         
-        if (personCtrl.findElibigility(person)){
+        if (es.findElibigility(person) & !person.getFlag()){
             messageLabel.setText("Hi " +person.getFirstName()+ "! Your blood type is not critical but you are eligible to give it ! ");
         }
     }
@@ -62,7 +64,7 @@ public class UserWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         messageLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         editprofilButton.setText("Edit Profil");
         editprofilButton.addActionListener(new java.awt.event.ActionListener() {
@@ -77,19 +79,17 @@ public class UserWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(messageLabel)))
-                .addContainerGap(177, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(271, Short.MAX_VALUE)
                 .addComponent(editprofilButton)
                 .addGap(46, 46, 46))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(messageLabel)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,15 +98,16 @@ public class UserWindow extends javax.swing.JFrame {
                 .addComponent(editprofilButton)
                 .addGap(73, 73, 73)
                 .addComponent(jLabel1)
-                .addGap(48, 48, 48)
+                .addGap(56, 56, 56)
                 .addComponent(messageLabel)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void editprofilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editprofilButtonActionPerformed
+        this.dispose();
         Man m = manCtrl.findByIdPerson(person);
         Woman w =womanCtrl.findByIdPerson(person);
         if (m != null){
