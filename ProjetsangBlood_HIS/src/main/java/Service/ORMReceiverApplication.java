@@ -73,6 +73,7 @@ public class ORMReceiverApplication implements ReceivingApplication<Message> {
             
             groupeRhesus = groupe + rhesus ; 
         }
+        System.out.println(groupeRhesus);
        
         //creer une query dans le controller patient (model) qui va find tous les patients avec le bon groupe et le bon rhésus
         //ajouter mfac ici pour pouvoir utiliser le controller du patient pour appeler cette query
