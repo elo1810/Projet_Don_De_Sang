@@ -19,6 +19,10 @@ import javax.persistence.Table;
  *
  * @author Elo
  */
+
+/*
+    On retouve les noms des colonnes de notre base de données
+*/
 @Entity
 @Table(name = "stockdesang")
 @NamedQueries({
@@ -27,6 +31,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Stockdesang.findByGroupe", query = "SELECT s FROM Stockdesang s WHERE s.groupe = :groupe"),
     @NamedQuery(name = "Stockdesang.findByRhesus", query = "SELECT s FROM Stockdesang s WHERE s.rhesus = :rhesus"),
     @NamedQuery(name = "Stockdesang.findByQuantite", query = "SELECT s FROM Stockdesang s WHERE s.quantite = :quantite")})
+
 public class Stockdesang implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -100,7 +105,6 @@ public class Stockdesang implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Stockdesang)) {
             return false;
         }
@@ -111,9 +115,17 @@ public class Stockdesang implements Serializable {
         return true;
     }
 
+    
+/*
+    Cette méthode permet d'imprimer les éléments de la data base sous le format : 
+    Groupe Rhésus Quantité 
+    Exemple : A+ (Quantité : 256)
+    
+*/
     @Override
     public String toString() {
-        return "model.Stockdesang[ id=" + id + " ]" + groupe + rhesus + "(" + quantite + ")";
+        //return "model.Stockdesang[ id=" + id + " ]" + groupe + rhesus + "(" + quantite + ")";
+        return groupe + rhesus + " ( Quantité : " + quantite + ")";
     }
     
 }
