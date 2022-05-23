@@ -28,6 +28,13 @@ import model.Stockdesang;
  * @author gracejost
  */
 
+/*  Création du message de type ORM_O01 
+    C'est AFMPS qui envoie le message 
+    On identifie le message qu'on est en train d'envoyer pour, 
+    lorsque l'on reçoit la réponse, on sache à quel message on fait référence
+    Le message contient 3 segements : MSH , NTE et ORC 
+    La fonction retourne un orm 
+*/
 
 public class HL7Services {
     public ORM_O01 create_ORM_O01(Stockdesang stockdesang){
@@ -36,18 +43,13 @@ public class HL7Services {
             orm = new ORM_O01();
             orm.initQuickstart("ORM", "O01", "P");
             MSH mshSegment = orm.getMSH();
-            mshSegment.getSendingApplication().getNamespaceID().setValue("AFMPS");//on dit qui envoie le message
-                        
-            mshSegment.getSequenceNumber().setValue("");//identifie le message qu'on est en train d'envoyer pour, lorsque l'on reçoit la réponse, on sache à quel message on fait référence
+            mshSegment.getSendingApplication().getNamespaceID().setValue("AFMPS");
+            mshSegment.getSequenceNumber().setValue("");
             NTE nte = orm.getNTE();
             nte.getNte3_Comment(0).setValue(stockdesang.getGroupe()+" "+stockdesang.getRhesus()+" est en manque");
-            
             ORM_O01_ORDER orm_O01_order = orm.getORDER();
             ORC orc = orm_O01_order.getORC();
-            orc.getOrc3_FillerOrderNumber().getEi3_UniversalID().setValue("test"); //.setValue("NW"); // Comment peut on remplir le segment ORC du message et que veut dire conditionnel ?
-            
-            //Sinon manuellement     
-            
+            orc.getOrc1_OrderControl().setValue("NW");    
         } catch (HL7Exception ex) {
             Logger.getLogger(HL7Services.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -56,31 +58,27 @@ public class HL7Services {
     return orm;
     }
     
+/*
+    Fonction qui envoie le message de type ORM_O01 créé au dessus , sur un certain port
+    On utilise un server HL7 pour l'envoie du message
+    La connexion est créée ( et elle n'est pas sécurisée), on y donne les informations pour une bonne connexion
+    Ensuite, la connection est initiée 
+    On envoie le message de type ORM et on récupère la réponse - sous forme de string
+    Enfin, on affiche la réponse dans le terminal 
+    
+*/
     public void sendORM_O01(ORM_O01 orm, String host, int port)
     {
         try {
-            //On commence par créer le context HL7 :
             HapiContext context = new DefaultHapiContext();
-            // A connection object represents a socket attached to an HL7 server
-            
             Connection connection = context.newClient(host, port, false);
-            // le troisième argument indique si on utilise une connexion sécurisée avec TLS ou non, ici ce n'est pas le cas donc on a just mis False
-            //faire le new client c'est l'équivalent de ce que l'on faisait dans le test pannel quand on crée la sending connexion ( une connexion vers le recieving connexion : on donne les informations de connexion
-            //c à d le host, le port que l'on a passé en paramètre de la fonction send ORM_O01 le host ici sera localhost
-            
-            // The initiator is used to transmit unsolicited messages
-            //une fois la connexion créée : on initie la connexion : on vérifie que l'on peut bien se connecter au serveur 
             Initiator initiator = connection.getInitiator();
-            //on envoie le message ADT et on récupère la réponse
             Message response = initiator.sendAndReceive(orm);
-            Parser p = context.getPipeParser();//le parseur p est ce qu'on a besoin pour afficher la réponse dans le teminal
-            String responseString = p.encode(response);//encode récupère le string
+            Parser p = context.getPipeParser();
+            String responseString = p.encode(response);
             System.out.println("Received response:\n" + responseString);
         } catch (HL7Exception | LLPException | IOException ex) {
             Logger.getLogger(HL7Services.class.getName()).log(Level.SEVERE, null, ex);
-            //On va afficher cette réponse dans le terminal
-        }
- 
+        } 
     }
-    
 }
