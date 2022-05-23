@@ -66,7 +66,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="messageLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Message"/>
+        <Property name="text" type="java.lang.String" value="You are not eligible to give your blood so far "/>
       </Properties>
     </Component>
   </SubComponents>

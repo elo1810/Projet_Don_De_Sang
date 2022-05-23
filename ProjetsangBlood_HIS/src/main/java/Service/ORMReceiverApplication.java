@@ -34,7 +34,7 @@ import Model.Man;
  */
 
 //class to display the received ADT_A01 message on the terminal.
-public class ORMReceiverApplication implements  ReceivingApplication<Message> {
+public class ORMReceiverApplication implements ReceivingApplication<Message> {
 
     
     private final EntityManagerFactory emfac = Persistence.createEntityManagerFactory("com.mycompany_ProjetsangBlood_HIS_jar_1.0-SNAPSHOTPU");

@@ -73,7 +73,7 @@ public class UserWindow extends javax.swing.JFrame {
             }
         });
 
-        messageLabel.setText("Message");
+        messageLabel.setText("You are not eligible to give your blood so far ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
