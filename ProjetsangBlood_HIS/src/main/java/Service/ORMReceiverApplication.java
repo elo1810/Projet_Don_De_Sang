@@ -75,19 +75,20 @@ public class ORMReceiverApplication implements ReceivingApplication<Message> {
         }
         System.out.println(groupeRhesus);
        
-        //creer une query dans le controller patient (model) qui va find tous les patients avec le bon groupe et le bon rhésus
-        //ajouter mfac ici pour pouvoir utiliser le controller du patient pour appeler cette query
-        personCtrl.resetFlags();
-        List<Person> allbloodtype = personCtrl.findBloodType(groupeRhesus);
+        personCtrl.resetFlags(); //Reset de tous les flags pour simuler un dynamisme - plus de besoin des autres quand besoin d'un certain groupe (sinon en quelques queries tout le monde est à un) 
+        List<Person> allbloodtype = personCtrl.findBloodType(groupeRhesus); //recherche de toutes les personnes ayant le groupe sanguin désiré 
         EligibilityServices es = new EligibilityServices(); 
         
+        //Changement de flag de toutes les personne ayant le bon groupe sanguin et étant éligibles
+        //Un flag signifie que la personn, à sa connection, doit recevoir un message pour dire que son groupe de sang est nécessaire. 
+        //Le flag est donc set à 1 lors de la réception d'un message HL7 pour toutes les personnes de ce groupe sanguin respectant les critères l'éligibilité
         for (int i=0; i<allbloodtype.size(); i++){
             Person p = allbloodtype.get(i); 
             es.checkEligibility(p);
         }
  
         try {
-            return t.generateACK();
+            return t.generateACK(); //retour du message d'ackowledgement
         } catch (IOException ex) {
             Logger.getLogger(ORMReceiverApplication.class.getName()).log(Level.SEVERE, null, ex);
         }

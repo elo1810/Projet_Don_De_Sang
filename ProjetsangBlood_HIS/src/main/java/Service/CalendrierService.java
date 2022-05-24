@@ -13,10 +13,12 @@ import java.util.Date;
  * @author Adela
  */
 public class CalendrierService {
+    //Classe servant à anipuler les dates. Permet de calculer les dates de naissances respectant les critères d'éligibilité pour les comparer à la date de 
+    //naissance des volontaires. 
     
     public static Date MakeDifference(int i){
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.YEAR,-i);
-        return cal.getTime();
+        Calendar cal = Calendar.getInstance(); //instance d'un calendrier 
+        cal.add(Calendar.YEAR,-i); //enlever i années depuis la date d'aujourd'hui. 
+        return cal.getTime(); //Return de la date différence. 
     }
 }

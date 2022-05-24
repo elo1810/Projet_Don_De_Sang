@@ -164,13 +164,15 @@ public class WomanJpaController implements Serializable {
         }
     }
     
+//Cette fonction permer de trouver la femme das la table woman qui correspond à une personne de la table personne, si celle-ci existe
+//Grâce à une query crée dans le modèle woman
     public Woman findByIdPerson(Person p){
         EntityManager em = getEntityManager();
         List<Woman> res = em.createNamedQuery("Woman.findByIdPerson").setParameter("idPerson", p).getResultList();
-        if (res.isEmpty()){
+        if (res.isEmpty()){ //si pas de femme associée à cette personne, c'est que c'est un homme, et on retourne null
             return null;
         }
-        return res.get(0);
+        return res.get(0);//si il y a un résultat, on retourne la femme trouvée : comme idperson est une primary key, on est sûr qu'il n'y aura qu'une femme avec cette key si il y en a.
     }
     
 }

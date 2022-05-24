@@ -267,78 +267,28 @@ public class PersonJpaController implements Serializable {
         }
         return res.get(0);
     }
-    /*
-    public boolean findElibigility(Person person){ 
-        EntityManager em = getEntityManager();
-        int weight = 50;
-        int height = 150;
-        boolean sickness = false; 
-        Date datelimitemax = CalendrierService.MakeDifference(18);
-        Date datelimitemin = CalendrierService.MakeDifference(66);
-        
-        List<Person> res = em.createNamedQuery("Person.findElibigility").setParameter("id", person.getId()).setParameter("weight", weight).setParameter("height", height).setParameter("sickness", sickness).setParameter("datelimitemin", datelimitemin).setParameter("datelimitemax", datelimitemax).getResultList();
-        
-        
-        if (res.isEmpty()){
-            return false; 
-        }
-        else{
-            return true; 
-        }
-        
-    }
-
-    public void checkElibigility(Person person){ 
-        EntityManager em = getEntityManager();
-        int weight = 50;
-        int height = 150;
-        boolean sickness = false; 
-        Date datelimitemax = CalendrierService.MakeDifference(18);
-        Date datelimitemin = CalendrierService.MakeDifference(66);
-        
-        List<Person> res = em.createNamedQuery("Person.findElibigility").setParameter("id", person.getId()).setParameter("weight", weight).setParameter("height", height).setParameter("sickness", sickness).setParameter("datelimitemin", datelimitemin).setParameter("datelimitemax", datelimitemax).getResultList();
-        
-        
-        if (res.isEmpty()){
-            person.setFlag(false);
-        }
-        else{
-            person.setFlag(true);
-        }
-        
-    }
-    */
-    /*
-    public List<Person> findElibigilityList(){
-        int weight = 50;
-        int height = 150;
-        boolean sickness = false; 
-        Date datelimitemax = CalendrierService.MakeDifference(18);
-        Date datelimitemin = CalendrierService.MakeDifference(66);
-        EntityManager em = getEntityManager();
-        List<Person> res = em.createNamedQuery("Person.findElibigilityList").setParameter("weight", weight).setParameter("height", height).setParameter("sickness", sickness).setParameter("datelimitemin", datelimitemin).setParameter("datelimitemax", datelimitemax).getResultList();
-        return res; 
-        
-    }
-    */
     
+//Cette fonction va chercher et retourne toutes les personnes ayant un groupe sanguin donné (bt : le dit groupe sanguin) 
     public List<Person> findBloodType(String bt){
+        
         EntityManager em = getEntityManager();
+        //utilisation d'une query ajoutée dans le person controller. 
         List<Person> res = em.createNamedQuery("Person.findByBloodType").setParameter("bloodType", bt).getResultList();
         return res; 
     }
-    
+
+//fonction pour remettre les flags de toutes les personnes à 0. Un flag signifie que la personn, à sa connection, doit recevoir un message pour dire que son groupe de sang est nécessaire. 
+//Le flag est donc set à 1 lors de la réception d'un message HL7 pour toutes les personnes de ce groupe sanguin respectant les critères l'éligibilité 
     public void resetFlags(){
         
         EntityManager em = getEntityManager();
         
-        List<Person> res = em.createNamedQuery("Person.findAll").getResultList(); 
-        System.out.println("enter");
+        List<Person> res = em.createNamedQuery("Person.findAll").getResultList(); //récupération de toutes les personnes de la db 
         for (int i=0; i<res.size(); i++){
             Person p = res.get(i);
-            p.setFlag(false);
+            p.setFlag(false); //mise du flag à 0 pour toutes les personnes de la liste 
             try {
-                edit(p);
+                edit(p); //mise à jour de la personne dans la database grâce au controller
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(PersonJpaController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {

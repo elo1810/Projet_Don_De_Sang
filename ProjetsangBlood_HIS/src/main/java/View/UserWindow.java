@@ -36,15 +36,9 @@ public class UserWindow extends javax.swing.JFrame {
         this.person=p;
         EligibilityServices es = new EligibilityServices(); 
         
-        //personCtrl.findElibigility(person,50, 150, false, datelimitemax, datelimitemin);// set the flag true or false if the person is eligible
-        //womanCtrl.updateEligibility(person);
-        
-        if (person.getFlag() & es.findElibigility(person)){ //double précaution au cas ou changement depuis les flags
+        if (person.getFlag() & es.findElibigility(person)){ //double précaution de check d'éligibilité au cas ou édit du profil depuis les flags
             messageLabel.setText("Hi " +person.getFirstName()+ "! Your blood is needed ! Go give it ! ");
         }
-        //String bloodType = person.getBloodType();
-        //if person.isElemntOf list persone qui ont ce bloodtype
-        //a rajouter 
         
         if (es.findElibigility(person) & !person.getFlag()){
             messageLabel.setText("Hi " +person.getFirstName()+ "! Your blood type is not critical but you are eligible to give it ! ");
