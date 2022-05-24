@@ -32,6 +32,10 @@ public class AddPersonPannel extends javax.swing.JPanel {
         initComponents();
     }
     
+    /*
+    Cette fonction permet de remplir automatiquement tous les Textfield avec les données 
+    de la personne qui est donnée en argument
+    */
     public void setPerson(Person person){
         this.person = person;
         
@@ -46,6 +50,11 @@ public class AddPersonPannel extends javax.swing.JPanel {
         
     }
     
+    /*
+    Cette fonction recupere les differents informations des Textfield et les attribue 
+    à "person" 
+    Return : person
+    */
     public Person getPerson(){
         if( person == null ){
             person = new Person();

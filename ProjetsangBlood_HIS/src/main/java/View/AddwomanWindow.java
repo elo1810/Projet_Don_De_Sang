@@ -50,6 +50,9 @@ public class AddwomanWindow extends javax.swing.JFrame {
         return wmn;
     }
     
+    /*
+    Cette fonction permet de mettre à jour les attribus de "woman" en checkant aussi son eligibilité
+    */
     public void updateWoman(){
         if( wmn == null ){
             wmn = new Woman();
@@ -127,6 +130,11 @@ public class AddwomanWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    Cette fonction permet mettre à jour les attribus de "woman" et crée une nouvelle personne 
+    s'il n'y en a pas déjà une. Sinon il change les attribus de "woman" avec les nouvaux attribus.
+    Ouvre une fenêtre UserWindow et ferme la fenêtre AddwomanWindow.
+    */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         updateWoman();
         

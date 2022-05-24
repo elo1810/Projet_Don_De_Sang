@@ -102,6 +102,11 @@ public class AddmanWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    Cette fonction permet mettre à jour les attribus de "man" et crée une nouvelle personne 
+    s'il n'y en a pas déjà une. Sinon il change les attribus de "man" avec les nouvaux attribus.
+    Ouvre une fenêtre UserWindow et ferme la fenêtre AddmanWindow.
+    */
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         updateMan();
 

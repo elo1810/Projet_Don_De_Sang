@@ -78,11 +78,17 @@ public class AddDonnorWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    Cette fonction permet d'ouvrire la fentre AddwomanWindow 
+    */
     private void womanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_womanButtonActionPerformed
         AddwomanWindow aww = new AddwomanWindow();
         aww.setVisible(true);
     }//GEN-LAST:event_womanButtonActionPerformed
 
+    /*
+    Cette fonction permet d'ouvrire la fentre AddmanWindow 
+    */
     private void manButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manButtonActionPerformed
         AddmanWindow amw = new AddmanWindow();
         amw.setVisible(true);

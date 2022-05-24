@@ -111,6 +111,11 @@ public class askLogInWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    Cette fonction permet de vérifier que la personne qui souhaite se connecter fait partie de la 
+    base de données, si c'est le cas, ouvre la fenêtre UserWindow.
+    Sinon elle renvoie un message d'erreur.
+    */
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
         Person p = personCtrl.findByLogIn(firstnameTextField.getText(), nameTextField.getText(), passwordTextField.getText()) ;
         if (p==null){

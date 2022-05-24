@@ -7,8 +7,7 @@ package View;
 import Service.HL7ServicesHIS;
 
 /**
- *
- * @author Adela
+ *Classe permetant d'afficher la fenêtre MainWindow
  */
 public class MainWindow extends javax.swing.JFrame {
 
@@ -76,6 +75,9 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    Cette fonction permet d'ouvrire la fentre AddDonnorWindow 
+    */
     private void adddonneurbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adddonneurbuttonMouseClicked
         AddDonnorWindow adw = new AddDonnorWindow();
         adw.setVisible(true); 
@@ -84,7 +86,10 @@ public class MainWindow extends javax.swing.JFrame {
     private void adddonneurbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adddonneurbuttonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_adddonneurbuttonActionPerformed
-
+    
+    /*
+    Cette fonction permet d'ouvrire la fentre AskLogInWindow 
+    */
     private void connexionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connexionButtonActionPerformed
         askLogInWindow login = new askLogInWindow(); 
         login.setVisible(true);

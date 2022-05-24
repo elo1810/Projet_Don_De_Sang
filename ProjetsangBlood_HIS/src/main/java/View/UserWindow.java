@@ -31,6 +31,12 @@ public class UserWindow extends javax.swing.JFrame {
      * 
      * Creates new form UserWindow
      */
+    
+    /*
+    Cette fonction permet de vérifier l'eligibilité de la personne "p". 
+    Elle vérifie aussi si le groupe sanguin correspond au message recu.
+    Elle envoie différents message en fonction de l'eiligibilité et du groupe sanguin.
+    */
     public UserWindow(Person p) {
         initComponents();
         this.person=p;
@@ -100,6 +106,11 @@ public class UserWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+   /*
+    Cette fonction permet d'ouvrir les fenêtre correnspondant AddmanWindow et AddwomanWIndow 
+    si la personne qui est connectée sur son compte est un homme ou une femme
+    */
     private void editprofilButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editprofilButtonActionPerformed
         this.dispose();
         Man m = manCtrl.findByIdPerson(person);
