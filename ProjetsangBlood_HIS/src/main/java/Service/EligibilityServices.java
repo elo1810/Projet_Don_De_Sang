@@ -52,9 +52,12 @@ public class EligibilityServices {
     public void checkEligibility(Person person){
         if (person.getWeight()> weight & person.getHeight()>height & person.getSickness()==sickness & person.getDateOfBirth().after(datelimitemin) & person.getDateOfBirth().before(datelimitemax)){
             Woman w = womanCtrl.findByIdPerson(person);
-            if (w != null  ){
+            if (w != null){
                 if(w.getIsPregnant()){
                     person.setFlag(false);
+                }
+                else {
+                    person.setFlag(true);
                 }
             }
             else {
